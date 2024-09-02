@@ -53,7 +53,7 @@ When creating functions, please add type hinting and doc string like below
 ### Task 2
 ```python
 1. add a function called get_exchange_rate to extract_data.py so it can download fx rate for us
-def get_exchange_rate(from_currency, to_currency, interval):
+def get_exchange_rate(from_currency, to_currency, period,interval):
 
 
 ```
