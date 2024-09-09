@@ -74,5 +74,5 @@ msft.options
 msft.news
 
 # get option chain for specific expiration
-opt = msft.option_chain('YYYY-MM-DD')
+opt = msft.option_chain("YYYY-MM-DD")
 # data available via: opt.calls, opt.puts
