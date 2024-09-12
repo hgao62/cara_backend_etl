@@ -159,9 +159,4 @@ def get_news(stock: str) -> pd.DataFrame:
     news_df.rename(
         columns={"providerPublishTime": "provider_publish_time"}, inplace=True
     )
-    news_df.to_csv(
-        "C:\\Users\\zhang\\OneDrive\\Desktop\\Udmy\\Kobe_Python\\cara_backend_etl\\output.csv",
-        index=False,
-    )
-
     return news_df
