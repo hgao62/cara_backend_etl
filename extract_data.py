@@ -7,7 +7,7 @@ import numpy as np
 pd.set_option("display.max_columns", None)
 pd.set_option("display.width", None)
 
-
+test = 10
 def get_stock_history(stock: str) -> pd.DataFrame:
     """this function should full stock history given a stock input
         with period of 1 month
@@ -160,3 +160,12 @@ def get_news(stock: str) -> pd.DataFrame:
         columns={"providerPublishTime": "provider_publish_time"}, inplace=True
     )
     return news_df
+
+
+
+if __name__ == "__main__":
+    google_hist = get_stock_history("goog")
+    google_major_holder = get_stock_financials("goog")
+    ex_rate = get_exchange_rate("usd", "eur", "1d")
+    google_currency_code = get_stock_currency_code("goog")
+    google_news = get_news("goog")
