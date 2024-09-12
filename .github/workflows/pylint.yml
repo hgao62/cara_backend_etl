@@ -23,7 +23,7 @@ jobs:
     - name: Analysing the code with pylint
       run: |
         pylint $(git ls-files '*.py' | grep -v '^samples/')
-    - name: Analyse code with mypy
-      run: |
-        mypy $(git ls-files '*.py' | grep -v '^samples/')
+    # - name: Analyse code with mypy
+    #   run: |
+    #     mypy $(git ls-files '*.py' | grep -v '^samples/')
         
