@@ -8,6 +8,7 @@ msft.info
 # get historical market data
 hist = msft.history(period="1mo")
 
+
 # show meta information about the history (requires history() to be called first)
 msft.history_metadata
 
@@ -73,5 +74,5 @@ msft.options
 msft.news
 
 # get option chain for specific expiration
-opt = msft.option_chain('YYYY-MM-DD')
+opt = msft.option_chain("YYYY-MM-DD")
 # data available via: opt.calls, opt.puts
