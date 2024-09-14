@@ -1,3 +1,4 @@
+"""main python file for project entry point"""
 from extract_data import (
     get_stock_history,
     get_stock_financials,

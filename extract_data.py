@@ -8,7 +8,6 @@ from schema import SelectedColumns, ExchangeOutputColumns, NewsOutputColumns
 pd.set_option("display.max_columns", None)
 pd.set_option("display.width", None)
 
-
 def get_stock_history(stock: str) -> pd.DataFrame:
     """this function should full stock history given a stock input
         with period of 1 month
