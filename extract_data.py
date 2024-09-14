@@ -3,6 +3,7 @@
 import yfinance as yf
 import pandas as pd
 import numpy as np
+from schema import Financial
 
 pd.set_option("display.max_columns", None)
 pd.set_option("display.width", None)
@@ -73,6 +74,12 @@ def get_stock_financials(stock: str) -> pd.DataFrame:
     ]
 
     # Select only the specific columns from the DataFrame
+    common_columns = set(selected_columns).intersection(stock_financials.columns)
+    columns_not_in_df = set(selected_columns) - set(stock_financials.columns)
+    output = stock_financials[common_columns]
+    output[columns_not_in_df] = np.nan
+    
+    
     stock_financials_selected = pd.DataFrame()
     for col in selected_columns:
         if col in stock_financials.columns:
@@ -80,6 +87,7 @@ def get_stock_financials(stock: str) -> pd.DataFrame:
         else:
             stock_financials_selected[col] = np.nan
     stock_financials_selected.rename(columns={"index": "date"}, inplace=True)
+    test_variable = 10
     return stock_financials_selected
 
 
@@ -106,6 +114,7 @@ def get_exchange_rate(
     fx_data.drop("Volume", axis=1, inplace=True)
     fx_data.reset_index(inplace=True)  # reset index to column
     fx_data["Ticker"] = ticker
+    Financial.NORMALIZED_EBIT.value
     fx_data["From Currency"] = from_currency
     fx_data["To Currency"] = to_currency
 
@@ -154,6 +163,8 @@ def get_news(stock: str) -> pd.DataFrame:
     news_df = pd.DataFrame(news)
     del news_df["thumbnail"]
     del news_df["relatedTickers"]
+    
+    news_df = news_df.drop(columns= ["thumbnail","relatedTickers"], axis = 1)
     news_df.insert(0, "stock", stock)
     news_df.rename(
         columns={"providerPublishTime": "provider_publish_time"}, inplace=True
