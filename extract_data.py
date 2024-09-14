@@ -3,6 +3,7 @@
 import yfinance as yf
 import pandas as pd
 import numpy as np
+from schema import SelectedColumns, ExchangeOutputColumns, NewsOutputColumns
 
 pd.set_option("display.max_columns", None)
 pd.set_option("display.width", None)
@@ -52,35 +53,25 @@ def get_stock_financials(stock: str) -> pd.DataFrame:
         'Total Operating Expenses'
     """
     ticker = yf.Ticker(stock)
-    stock_financials = ticker.financials.transpose().reset_index()
-    selected_columns = [
-        "index",  # The date column
-        "Tax Effect of Unusual Items",
-        "Tax Rate For Calcs",
-        "Normalized EBIT",
-        "Total Unusual Items",
-        "Net Income From Continuing Ops",
-        "Reconciled Depreciation",
-        "Reconciled Cost Of Revenue",
-        "EBITDA",
-        "EBIT",
-        "Net Interest Income",
-        "Interest Expense",
-        "Interest Income",
-        "Normalized Income",
-        "Net Income From Continuing Operations",
-        "Total Expenses",
-        "Total Operating Expenses",
-    ]
+    stock_financials = ticker.financials.transpose().reset_index() #transpose financial metrics rows to columns and reset index to a column
+    selected_columns = [col.value for col in SelectedColumns]
 
+    stock_financials_selected_columns = set(stock_financials.columns).intersection(selected_columns)
+    stock_financials_na_columns = set(selected_columns) - (set(stock_financials.columns))
+    stock_financials_selected = stock_financials[list(stock_financials_selected_columns)]
+    stock_financials_selected[list(stock_financials_na_columns)] = np.nan
     # Select only the specific columns from the DataFrame
-    stock_financials_selected = pd.DataFrame()
-    for col in selected_columns:
-        if col in stock_financials.columns:
-            stock_financials_selected[col] = stock_financials[col]
-        else:
-            stock_financials_selected[col] = np.nan
+    # stock_financials_selected = pd.DataFrame()
+    # for col in selected_columns:
+    #     if col in stock_financials.columns:
+    #         stock_financials_selected[col] = stock_financials[col]
+    #     else:
+    #         stock_financials_selected[col] = np.nan
+    # stock_financials_selected.rename(columns={"index": "date"}, inplace=True)
+    
+    stock_financials_selected = stock_financials_selected[selected_columns]
     stock_financials_selected.rename(columns={"index": "date"}, inplace=True)
+    
     return stock_financials_selected
 
 
@@ -110,17 +101,7 @@ def get_exchange_rate(
     fx_data["From Currency"] = from_currency
     fx_data["To Currency"] = to_currency
 
-    output_columns = [
-        "Date",
-        "Ticker",
-        "From Currency",
-        "To Currency",
-        "Open",
-        "High",
-        "Low",
-        "Close",
-        "Adj Close",
-    ]
+    output_columns = [col.value for col in ExchangeOutputColumns]
 
     return fx_data[output_columns]
 
@@ -149,19 +130,15 @@ def get_news(stock: str) -> pd.DataFrame:
         pd.DataFrame: news of a given stock
     """
     stock_info = yf.Ticker(stock)
-
+    output = [col.value for col in NewsOutputColumns]
     news = stock_info.news
 
     news_df = pd.DataFrame(news)
-    del news_df["thumbnail"]
-    del news_df["relatedTickers"]
-    news_df.insert(0, "stock", stock)
+    news_df.drop(["thumbnail","relatedTickers"],axis=1, inplace=True)
+    news_df["stock"] = stock
     news_df.rename(
         columns={"providerPublishTime": "provider_publish_time"}, inplace=True
     )
-    news_df.to_csv(
-        "C:\\Users\\zhang\\OneDrive\\Desktop\\Udmy\\Kobe_Python\\cara_backend_etl\\output.csv",
-        index=False,
-    )
+    news_df = news_df[output]
 
-    return news_df
+    return news_df[output]

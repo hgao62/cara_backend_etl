@@ -8,7 +8,6 @@ from extract_data import (
 
 
 def main():
-    pass
     google_hist = get_stock_history("goog")
     google_major_holder = get_stock_financials("goog")
     ex_rate = get_exchange_rate("usd", "eur", "1d")
