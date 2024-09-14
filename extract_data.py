@@ -3,10 +3,11 @@
 import yfinance as yf
 import pandas as pd
 import numpy as np
-from schema import SelectedColumns, ExchangeOutputColumns, NewsOutputColumns
+from column_schema import (SelectedColumns, ExchangeOutputColumns, NewsOutputColumns)
 
 pd.set_option("display.max_columns", None)
 pd.set_option("display.width", None)
+
 
 def get_stock_history(stock: str) -> pd.DataFrame:
     """this function should full stock history given a stock input
@@ -52,12 +53,20 @@ def get_stock_financials(stock: str) -> pd.DataFrame:
         'Total Operating Expenses'
     """
     ticker = yf.Ticker(stock)
-    stock_financials = ticker.financials.transpose().reset_index() #transpose financial metrics rows to columns and reset index to a column
+    stock_financials = (
+        ticker.financials.transpose().reset_index()
+    )  # transpose financial metrics rows to columns and reset index to a column
     selected_columns = [col.value for col in SelectedColumns]
 
-    stock_financials_selected_columns = set(stock_financials.columns).intersection(selected_columns)
-    stock_financials_na_columns = set(selected_columns) - (set(stock_financials.columns))
-    stock_financials_selected = stock_financials[list(stock_financials_selected_columns)]
+    stock_financials_selected_columns = set(stock_financials.columns).intersection(
+        selected_columns
+    )
+    stock_financials_na_columns = set(selected_columns) - (
+        set(stock_financials.columns)
+    )
+    stock_financials_selected = stock_financials[
+        list(stock_financials_selected_columns)
+    ]
     stock_financials_selected[list(stock_financials_na_columns)] = np.nan
     # Select only the specific columns from the DataFrame
     # stock_financials_selected = pd.DataFrame()
@@ -67,10 +76,10 @@ def get_stock_financials(stock: str) -> pd.DataFrame:
     #     else:
     #         stock_financials_selected[col] = np.nan
     # stock_financials_selected.rename(columns={"index": "date"}, inplace=True)
-    
+
     stock_financials_selected = stock_financials_selected[selected_columns]
     stock_financials_selected.rename(columns={"index": "date"}, inplace=True)
-    
+
     return stock_financials_selected
 
 
@@ -133,7 +142,7 @@ def get_news(stock: str) -> pd.DataFrame:
     news = stock_info.news
 
     news_df = pd.DataFrame(news)
-    news_df.drop(["thumbnail","relatedTickers"],axis=1, inplace=True)
+    news_df.drop(["thumbnail", "relatedTickers"], axis=1, inplace=True)
     news_df["stock"] = stock
     news_df.rename(
         columns={"providerPublishTime": "provider_publish_time"}, inplace=True
