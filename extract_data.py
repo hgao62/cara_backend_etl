@@ -138,6 +138,5 @@ def get_news(stock: str) -> pd.DataFrame:
     news_df.rename(
         columns={"providerPublishTime": "provider_publish_time"}, inplace=True
     )
-    news_df = news_df[output]
 
     return news_df[output]
