@@ -1,6 +1,13 @@
+"""Enum definition for constant variables in extract_data.py"""
 from enum import Enum
 
-class SelectedColumns (Enum):
+class SelectedColumns(Enum):
+    """This class should define Enums for column names of the data 
+       frame output of the get_stock_financials function in extract_data.py
+
+    Args:
+        Enum (_type_): Enum 
+    """
     INDEX = "index"  # The date column
     TAX_EFFECT_UNUSUAL_ITEMS = "Tax Effect of Unusual Items"
     TAX_RATE_CALCS = "Tax Rate For Calcs"
@@ -19,7 +26,15 @@ class SelectedColumns (Enum):
     TOTAL_EXPENSE = "Total Expenses"
     TOTAL_OPERATING_EXPENSES = "Total Operating Expenses"
 
-class ExchangeOutputColumns (Enum):
+
+class ExchangeOutputColumns(Enum):
+    """This class should define Enums for column names of the data 
+       frame output of the get_exchange_rate function in extract_data.py
+
+
+    Args:
+        Enum (_type_): Enum
+    """
     DATE = "Date"
     TICKER = "Ticker"
     FROM_CURRENCY = "From Currency"
@@ -30,11 +45,18 @@ class ExchangeOutputColumns (Enum):
     CLOSE = "Close"
     ADJ_CLOSE = "Adj Close"
 
-class NewsOutputColumns (Enum): 
-    STOCK = 'stock'
-    UUID = 'uuid'
-    TITLE = 'title'
-    PUBLISHER = 'publisher'
-    LINK = 'link'
-    PROVIDER_PUBLISH_TIME = 'provider_publish_time'
-    TYPE = 'type'
+
+class NewsOutputColumns(Enum):
+    """This class should define Enums for column names of the data 
+       frame output of the get_news function in extract_data.py
+
+    Args:
+        Enum (_type_): Enum
+    """
+    STOCK = "stock"
+    UUID = "uuid"
+    TITLE = "title"
+    PUBLISHER = "publisher"
+    LINK = "link"
+    PROVIDER_PUBLISH_TIME = "provider_publish_time"
+    TYPE = "type"
