@@ -1,4 +1,5 @@
 """main python file for project entry point"""
+
 from .extract_data import (
     get_stock_history,
     get_stock_financials,
@@ -10,7 +11,7 @@ from .extract_data import (
 
 def main():
     """
-        main function to retrieve stcok information and history
+    main function to retrieve stcok information and history
     """
     google_hist = get_stock_history("goog")
     google_major_holder = get_stock_financials("goog")

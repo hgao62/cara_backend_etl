@@ -3,7 +3,7 @@
 import yfinance as yf
 import pandas as pd
 import numpy as np
-from .column_schema import (SelectedColumns, ExchangeOutputColumns, NewsOutputColumns)
+from .column_schema import SelectedColumns, ExchangeOutputColumns, NewsOutputColumns
 
 pd.set_option("display.max_columns", None)
 pd.set_option("display.width", None)
@@ -22,7 +22,7 @@ def get_stock_history(stock: str) -> pd.DataFrame:
     """
     stock_info = yf.Ticker(stock)
     hist = stock_info.history(period="1mo")
-    del hist["Stock Splits"]
+    hist.drop("Stock Splits", axis=1, inplace=True)
     hist["stock"] = stock
     return hist
 
@@ -67,7 +67,8 @@ def get_stock_financials(stock: str) -> pd.DataFrame:
     stock_financials_selected = stock_financials[
         list(stock_financials_selected_columns)
     ]
-    stock_financials_selected[list(stock_financials_na_columns)] = np.nan
+    stock_financials_selected.loc[:, list(stock_financials_na_columns)] = np.nan
+
     # Select only the specific columns from the DataFrame
     # stock_financials_selected = pd.DataFrame()
     # for col in selected_columns:
@@ -147,5 +148,22 @@ def get_news(stock: str) -> pd.DataFrame:
     news_df.rename(
         columns={"providerPublishTime": "provider_publish_time"}, inplace=True
     )
-
     return news_df[output]
+
+
+def enrich_stock_history(stock_history: pd.DataFrame):
+    """_summary_
+
+    Args:
+        stock_history (pd.DataFrame): _description_
+
+    Returns:
+        _type_: _description_
+    """
+    stock_history["daily_return"] = np.log(
+        stock_history["close"] / stock_history["close"].shift(1)
+    )
+    stock_history["cummulative_return"] = (
+        np.exp(stock_history["daily_return"].cumsum()) - 1
+    )
+    return stock_history
