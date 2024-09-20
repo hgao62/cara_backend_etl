@@ -10,7 +10,7 @@ ENGINE = create_engine(
     r"sqlite:///C:\Users\zhang\OneDrive\Desktop\Udmy\Kobe_Python\mySqlite.db") 
 
 def save_df_to_db(
-    df : DataFrame,
+    data_frame : DataFrame,
     table_name : str,
     engine : sqlalchemy.engine.base.Engine,
     if_exists : str="append",
@@ -32,7 +32,7 @@ def save_df_to_db(
         None. This function logs a message to confirm that data has been sent to the SQL database.
     """
     try:
-        df.to_sql(
+        data_frame.to_sql(
             name = table_name,
             con = engine,
             if_exists = if_exists,
@@ -41,13 +41,13 @@ def save_df_to_db(
         )
 
         logging.info("DataFrame saved successfully to table %s in the SQL database.", table_name)
-    except SQLAlchemyError as e:
+    except SQLAlchemyError as error:
         # Catch any SQLAlchemy-specific database errors
-        logging.error("Database error saving DataFrame to table %s: %s", table_name, str(e))
-    except df.errors.EmptyDataError as e:
+        logging.error("Database error saving DataFrame to table %s: %s", table_name, str(error))
+    except data_frame.errors.EmptyDataError as error:
         # Catch pandas-specific errors (e.g., if the DataFrame is empty)
-        logging.error("Empty data error in DataFrame: %s", str(e))
-    except ValueError as e:
+        logging.error("Empty data error in DataFrame: %s", str(error))
+    except ValueError as error:
         # Catch ValueError (for example, if there's an invalid column data type)
-        logging.error("Value error in saving DataFrame: %s", str(e))
+        logging.error("Value error in saving DataFrame: %s", str(error))
   
