@@ -152,13 +152,14 @@ def get_news(stock: str) -> pd.DataFrame:
 
 
 def enrich_stock_history(stock_history: pd.DataFrame):
-    """_summary_
+    """This function should calculate daily return and accumulative 
+       return for a stock
 
     Args:
-        stock_history (pd.DataFrame): _description_
+        stock_history (pd.DataFrame): stock history of a stock
 
     Returns:
-        _type_: _description_
+        _type_: enriched stock history DataFrame with daily return and accumulative return
     """
     stock_history["daily_return"] = np.log(
         stock_history["close"] / stock_history["close"].shift(1)
