@@ -22,7 +22,7 @@ def get_stock_history(stock: str) -> pd.DataFrame:
     """
     stock_info = yf.Ticker(stock)
     hist = stock_info.history(period="1mo")
-    del hist["Stock Splits"]
+    hist.drop("Stock Splits", axis=1, inplace=True)
     hist["stock"] = stock
     return hist
 
