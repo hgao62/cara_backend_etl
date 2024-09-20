@@ -151,14 +151,6 @@ def get_news(stock: str) -> pd.DataFrame:
     return news_df[output]
 
 
-if __name__ == "__main__":
-    google_hist = get_stock_history("goog")
-    google_major_holder = get_stock_financials("goog")
-    ex_rate = get_exchange_rate("usd", "eur", "1d")
-    google_currency_code = get_stock_currency_code("goog")
-    google_news = get_news("goog")
-
-
 def enrich_stock_history(stock_history: pd.DataFrame):
     """_summary_
 
