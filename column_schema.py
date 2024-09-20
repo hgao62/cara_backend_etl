@@ -1,13 +1,16 @@
 """Enum definition for constant variables in extract_data.py"""
+
 from enum import Enum
 
+
 class SelectedColumns(Enum):
-    """This class should define Enums for column names of the data 
+    """This class should define Enums for column names of the data
        frame output of the get_stock_financials function in extract_data.py
 
     Args:
-        Enum (_type_): Enum 
+        Enum (_type_): Enum
     """
+
     INDEX = "index"  # The date column
     TAX_EFFECT_UNUSUAL_ITEMS = "Tax Effect of Unusual Items"
     TAX_RATE_CALCS = "Tax Rate For Calcs"
@@ -28,13 +31,14 @@ class SelectedColumns(Enum):
 
 
 class ExchangeOutputColumns(Enum):
-    """This class should define Enums for column names of the data 
+    """This class should define Enums for column names of the data
        frame output of the get_exchange_rate function in extract_data.py
 
 
     Args:
         Enum (_type_): Enum
     """
+
     DATE = "Date"
     TICKER = "Ticker"
     FROM_CURRENCY = "From Currency"
@@ -47,12 +51,13 @@ class ExchangeOutputColumns(Enum):
 
 
 class NewsOutputColumns(Enum):
-    """This class should define Enums for column names of the data 
+    """This class should define Enums for column names of the data
        frame output of the get_news function in extract_data.py
 
     Args:
         Enum (_type_): Enum
     """
+
     STOCK = "stock"
     UUID = "uuid"
     TITLE = "title"
