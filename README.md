@@ -133,3 +133,31 @@ df.to_sql() #4. final step of saving dataframe to db, see pandas documents on ho
 ```
 3. install sqlite studio from link below
 https://github.com/pawelsalawa/sqlitestudio/releases
+
+
+### Task 4
+
+1. add logging to your project and add different type of logs wherever applicable
+https://realpython.com/python-logging/
+https://www.youtube.com/watch?v=urrfJgHwIJA 
+```python
+import logging
+
+logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
+logging.info('Admin logged in')
+```
+2. add unit testing(use pytest, see youtube video below) for 2 functions one for get_stock_history and one for get_news
+https://www.youtube.com/watch?v=cHYq1MRoyI0&t=716s
+
+3. set up mysql engine and call your project below and you should see data loaded into mysql database
+   similar to how you set sqlite db. just change the connection string
+```python
+    tickers = ["AAPL"]
+    period = "5d"
+    main(tickers, period=period, db_type="mysql")
+```
+see video below to setup mysql
+https://www.youtube.com/watch?v=u96rVINbAUI
+
+for mac user, you need to run brew install mysql pkg-config
+https://stackoverflow.com/questions/66669728/trouble-installing-mysql-client-on-mac
