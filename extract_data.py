@@ -8,8 +8,7 @@ from .column_schema import SelectedColumns, ExchangeOutputColumns, NewsOutputCol
 pd.set_option("display.max_columns", None)
 pd.set_option("display.width", None)
 
-
-def get_stock_history(stock: str) -> pd.DataFrame:
+def get_stock_history(stock: str, period:str) -> pd.DataFrame:
     """this function should full stock history given a stock input
         with period of 1 month
 
@@ -21,7 +20,7 @@ def get_stock_history(stock: str) -> pd.DataFrame:
         date, open, high, low, close, volume, dividends, stock
     """
     stock_info = yf.Ticker(stock)
-    hist = stock_info.history(period="1mo")
+    hist = stock_info.history(period=period)
     hist.drop("Stock Splits", axis=1, inplace=True)
     hist["stock"] = stock
     return hist
@@ -151,15 +150,19 @@ def get_news(stock: str) -> pd.DataFrame:
     return news_df[output]
 
 
-def enrich_stock_history(stock_history: pd.DataFrame):
-    """_summary_
+def enrich_stock_history(stock_history: pd.DataFrame) -> pd.DataFrame:
+    """This function should calculate daily return and accumulative 
+       return for a stock
 
     Args:
-        stock_history (pd.DataFrame): _description_
+        stock_history (pd.DataFrame): stock history of a stock
 
     Returns:
-        _type_: _description_
+        _type_: enriched stock history DataFrame with daily return and accumulative return
     """
+    #sort the dataframe first just in case the rows are unsorted
+    stock_history = stock_history.sort_values(by="date")
+
     stock_history["daily_return"] = np.log(
         stock_history["close"] / stock_history["close"].shift(1)
     )
