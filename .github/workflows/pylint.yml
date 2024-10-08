@@ -23,7 +23,9 @@ jobs:
     - name: Analysing the code with pylint
       run: |
         pylint $(git ls-files '*.py' | grep -v '^samples/')
+    # 1. uncomment lines below and solve mypy issue
     # - name: Analyse code with mypy
     #   run: |
     #     mypy $(git ls-files '*.py' | grep -v '^samples/')
         
+    # 2. add lines below so that github would run unit testing everytime you push the code

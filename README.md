@@ -161,3 +161,8 @@ https://www.youtube.com/watch?v=u96rVINbAUI
 
 for mac user, you need to run brew install mysql pkg-config
 https://stackoverflow.com/questions/66669728/trouble-installing-mysql-client-on-mac
+
+### Task 5 CI pipeline configuration
+
+Configuration file is located in .github\workflows\pylint.yml folder. please add mypy check and unit testing to github workflow so that 
+it will run mypy check and unit testing every time we push code to our repo(hint:you can use chatgpt here)
