@@ -1,7 +1,9 @@
 """Enum definition for constant variables in extract_data.py"""
 
 from enum import Enum
+import logging
 
+logger = logging.getLogger(__name__)
 
 class SelectedColumns(Enum):
     """This class should define Enums for column names of the data
@@ -10,7 +12,7 @@ class SelectedColumns(Enum):
     Args:
         Enum (_type_): Enum
     """
-
+    logger.info("Enums for the data frame output from the get_stock_financials function")
     INDEX = "index"  # The date column
     TAX_EFFECT_UNUSUAL_ITEMS = "Tax Effect of Unusual Items"
     TAX_RATE_CALCS = "Tax Rate For Calcs"
@@ -38,7 +40,7 @@ class ExchangeOutputColumns(Enum):
     Args:
         Enum (_type_): Enum
     """
-
+    logger.info("Enum for data frame output of the get_exchange_rate function")
     DATE = "Date"
     TICKER = "Ticker"
     FROM_CURRENCY = "From Currency"

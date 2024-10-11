@@ -1,10 +1,11 @@
 """Extract data from yahoo finance"""
-
+import logging
 import yfinance as yf
 import pandas as pd
 import numpy as np
 from .column_schema import SelectedColumns, ExchangeOutputColumns, NewsOutputColumns
 
+logger = logging.getLogger(__name__)
 pd.set_option("display.max_columns", None)
 pd.set_option("display.width", None)
 
@@ -16,13 +17,14 @@ def get_stock_history(stock: str, period:str) -> pd.DataFrame:
         stock (str): stock ticker symbol
 
     Returns:
-        pd.DataFrame: 1-month stock price history with columns of
+        pd.DataFrame: stock price history with columns of
         date, open, high, low, close, volume, dividends, stock
     """
+    logger.info("Downloading stock data for %s with %s period", stock, period)
     stock_info = yf.Ticker(stock)
     hist = stock_info.history(period=period)
     hist.drop("Stock Splits", axis=1, inplace=True)
-    hist["stock"] = stock
+    hist["Stock"] = stock
     return hist
 
 
@@ -51,6 +53,7 @@ def get_stock_financials(stock: str) -> pd.DataFrame:
         'Total Expenses',
         'Total Operating Expenses'
     """
+    logger.info("get financial metrics of a stock %s", stock)
     ticker = yf.Ticker(stock)
     stock_financials = (
         ticker.financials.transpose().reset_index()
@@ -99,6 +102,8 @@ def get_exchange_rate(
         information including date, Ticker Name, from currency, to currency, open, high, low,
         close, adjusted close
     """
+    logger.info("Download foreign exchange rate from %s to %s with interval of %s",
+    from_currency, to_currency, interval)
     ticker = f"{from_currency}{to_currency}=X"
 
     # Download the historical FX data
@@ -123,6 +128,7 @@ def get_stock_currency_code(stock: str) -> pd.DataFrame:
     Returns:
         pd.DataFrame: trading currency code of the stock
     """
+    logger.info("Get stock currency code for %s", stock)
     ticker = yf.Ticker(stock)
     currency_code = ticker.fast_info["currency"]
     return currency_code
@@ -137,6 +143,7 @@ def get_news(stock: str) -> pd.DataFrame:
     Returns:
         pd.DataFrame: news of a given stock
     """
+    logger.info("Get news for stock %s", stock)
     stock_info = yf.Ticker(stock)
     output = [col.value for col in NewsOutputColumns]
     news = stock_info.news
@@ -161,6 +168,7 @@ def enrich_stock_history(stock_history: pd.DataFrame) -> pd.DataFrame:
         _type_: enriched stock history DataFrame with daily return and accumulative return
     """
     #sort the dataframe first just in case the rows are unsorted
+    logger.info("Add conlumns of daily return and accumulative return to the stock history table")
     stock_history = stock_history.sort_values(by="date")
 
     stock_history["daily_return"] = np.log(
