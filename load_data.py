@@ -8,6 +8,7 @@ import sqlalchemy
 ENGINE = create_engine(
     r"sqlite:///C:\Users\zhang\OneDrive\Desktop\Udmy\Kobe_Python\mySqlite.db") 
 
+logger = logging.getLogger(__name__)
 def save_df_to_db(
     data_frame : pd.DataFrame,
     table_name : str,
@@ -30,6 +31,7 @@ def save_df_to_db(
     Returns:
         None. This function logs a message to confirm that data has been sent to the SQL database.
     """
+    logger.info("Load data into a SQL database")
     data_frame.to_sql(
         name = table_name,
         con = engine,
