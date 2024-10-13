@@ -23,6 +23,9 @@ jobs:
       - name: Analysing the code with pylint
         run: |
           pylint $(git ls-files '*.py' | grep -v '^samples/')
+      - name: Run Unit Tests with pytest
+        run: |
+          pytest  # This runs all the tests in your project
     # - name: Analyse code with mypy
     #   run: |
     #     mypy $(git ls-files '*.py' | grep -v '^samples/')
