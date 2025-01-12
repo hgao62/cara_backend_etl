@@ -5,4 +5,4 @@ airflow webserver -p 8080
 ECHO "Airflow webserver is running"
 ECHO "About to run Airflow scheduler"
 airflow scheduler
-ECHO "irflow scheduler is running"
+ECHO "Airflow scheduler is running"

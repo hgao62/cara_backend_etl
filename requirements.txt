@@ -5,5 +5,7 @@ numpy>=1.21.0
 mysqlclient==2.2.0
 mysql-connector-python
 pytest-mock
+apache-airflow==2.9.0
+ 
 
  

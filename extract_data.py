@@ -3,7 +3,7 @@ import logging
 import yfinance as yf
 import pandas as pd
 import numpy as np
-from .column_schema import SelectedColumns, ExchangeOutputColumns, NewsOutputColumns
+from column_schema import SelectedColumns, ExchangeOutputColumns, NewsOutputColumns
 
 logger = logging.getLogger(__name__)
 pd.set_option("display.max_columns", None)

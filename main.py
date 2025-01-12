@@ -2,14 +2,14 @@
 import logging
 from sqlalchemy import create_engine
 from sqlalchemy.exc import SQLAlchemyError
-from .extract_data import (
+from extract_data import (
     get_stock_history,
     get_stock_financials,
     get_exchange_rate,
     get_stock_currency_code,
     get_news,
 )
-from .load_data import save_df_to_db
+from load_data import save_df_to_db
 logging.basicConfig(filename = 'projectLogs.log', filemode='a',
 format='%(asctime)s - %(levelname)s - %(filename)s : %(lineno)s - %(message)s',
 level=logging.INFO)
