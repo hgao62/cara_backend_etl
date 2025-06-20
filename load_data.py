@@ -32,21 +32,13 @@ def save_df_to_db(
         None. This function logs a message to confirm that data has been sent to the SQL database.
     """
     logger.info("Load data into a SQL database")
-    try:
-        # Use the engine to create a connection
-        with engine.connect() as connection:
-            data_frame.to_sql(
-                name=table_name,
-                con=connection,  # Use connection instead of engine
-                if_exists=if_exists,
-                index=False,
-                dtype=dtype,
-            )
-        print("Data saved successfully.")
-        logger.info("DataFrame saved successfully to table %s in the SQL database.", table_name)
-    except Exception as e:
-        logger.error("Error saving DataFrame to SQL database: %s", str(e))
-        raise
+    data_frame.to_sql(
+        table_name,
+        engine,
+        if_exists = if_exists,
+        index = False,
+        dtype = dtype
+    )
   
     print('data saved successfully.')
     logging.info("DataFrame saved successfully to table %s in the SQL database.", table_name)

@@ -15,8 +15,9 @@ format='%(asctime)s - %(levelname)s - %(filename)s : %(lineno)s - %(message)s',
 level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+#MYSQL_ENGINE = create_engine(r"mysql://root:Cara%40sheridan2023@localhost:3306/pythonkobe")
 
-MYSQL_ENGINE = create_engine(r"mysql://root:Cara%40sheridan2023@localhost:3306/pythonkobe")
+MYSQL_ENGINE = create_engine(r"mysql://airflow_user:airflow_pass@mysql:3306/airflow_db")
 SQLITEENGINE = create_engine(
     r"sqlite:///C:\Users\zhang\OneDrive\Desktop\Udmy\Kobe_Python\mySqlite.db") 
 ENGINE_DIC = {
