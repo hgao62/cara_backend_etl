@@ -20,8 +20,7 @@ services:
           "localhost",
           "-u",
           "airflow_user",
-          "-p",
-          "airflow_pass",
+          "-pairflow_pass",
         ]
       interval: 10s
       timeout: 5s
