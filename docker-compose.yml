@@ -41,7 +41,7 @@ services:
       mysql:
         condition: service_healthy # Wait for the MySQL service to be healthy before starting
     ports:
-      - "8080:8080" # Map the host port 8089 to the container 8080
+      - "8080:8080" # Map the host port 8080 to the container 8080
     # Define the command to run when the container starts
     entrypoint: ./entrypoint.sh
 # volumes:
