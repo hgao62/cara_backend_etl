@@ -1,7 +1,7 @@
 services:
   mysql:
-    image: mysql:5.7 # Use the MySQL 5.7 image
-    # image: mariadb:10.5
+    # image: mysql:5.7 # Use the MySQL 5.7 image
+    image: mariadb:10.5
     environment:
       MYSQL_ROOT_PASSWORD: airflow_pass # Set the MySQL root password
       MYSQL_DATABASE: airflow_db # Create a database named airflow
@@ -27,7 +27,7 @@ services:
       retries: 10
     # volumes:
     #   - mysql-db-volume:/var/lib/mysql # Mount the MySQL data volume
-    command: mysqld --sql_mode="ALLOW_INVALID_DATES"
+    # command: mysqld --sql_mode="ALLOW_INVALID_DATES"
 
   # Define the Airflow webserver service
   airflow_webserver:
