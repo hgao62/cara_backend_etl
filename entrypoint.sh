@@ -4,7 +4,7 @@ airflow users create --username admin --password admin --firstname kobe --lastna
 airflow webserver -p 8080
 echo "Airflow webserver is running"
 
-sleep 10
-echo "About to run Airflow scheduler"
-airflow scheduler
-echo "Airflow scheduler is running"
+# sleep 10
+# echo "About to run Airflow scheduler"
+# airflow scheduler
+# echo "Airflow scheduler is running"

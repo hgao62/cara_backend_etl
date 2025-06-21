@@ -44,5 +44,14 @@ services:
       - "8080:8080" # Map the host port 8080 to the container 8080
     # Define the command to run when the container starts
     entrypoint: ./entrypoint.sh
+
+  airflow_scheduler:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      mysql:
+        condition: service_healthy
+    entrypoint: ["airflow", "scheduler"]
 # volumes:
 #   mysql-db-volume: # Define the MySQL data volume
