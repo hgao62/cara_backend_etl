@@ -31,6 +31,7 @@ dag = DAG(
     default_args=default_args,
     description="My DAG for executing functions once a day at 8 PM",
     schedule="@daily",
+    catchup=False,
     render_template_as_native_obj=True,
 )
 
