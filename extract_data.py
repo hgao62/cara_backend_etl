@@ -23,7 +23,8 @@ def get_stock_history(stock: str, period:str) -> pd.DataFrame:
     logger.info("Downloading stock data for %s with %s period", stock, period)
     stock_info = yf.Ticker(stock)
     hist = stock_info.history(period=period)
-    hist.drop("Stock Splits", axis=1, inplace=True)
+    if "Stock Splits" in hist.columns:
+        hist.drop("Stock Splits", axis=1, inplace=True)
     hist["Stock"] = stock
     return hist
 
