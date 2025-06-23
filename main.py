@@ -30,7 +30,7 @@ def main(database_type : str) -> None:
     main function to retrieve stcok information and history
     """
     engine = ENGINE_DIC[database_type]
-    google_hist = get_stock_history("GOOG",period='1y')
+    google_hist = get_stock_history("GOOG",period='1d')
     save_df_to_db(google_hist,"stock_history", engine = engine)
     google_major_holder = get_stock_financials("goog")
     ex_rate = get_exchange_rate("usd", "eur", "1d")
