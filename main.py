@@ -17,7 +17,8 @@ logger = logging.getLogger(__name__)
 
 #MYSQL_ENGINE = create_engine(r"mysql://root:Cara%40sheridan2023@localhost:3306/pythonkobe")
 
-MYSQL_ENGINE = create_engine(r"mysql://airflow_user:airflow_pass@mysql:3306/airflow_db")
+# MYSQL_ENGINE = create_engine(r"mysql://airflow_user:airflow_pass@mysql:3306/airflow_db")
+MYSQL_ENGINE = create_engine(r"mysql://root:Cara%40sheridan2023@localhost:3306/pythonkobe")
 SQLITEENGINE = create_engine(
     r"sqlite:///C:\Users\zhang\OneDrive\Desktop\Udmy\Kobe_Python\mySqlite.db") 
 ENGINE_DIC = {
@@ -30,7 +31,7 @@ def main(database_type : str) -> None:
     main function to retrieve stcok information and history
     """
     engine = ENGINE_DIC[database_type]
-    google_hist = get_stock_history("GOOG",period='1d')
+    google_hist = get_stock_history("GOOG",period='5d')
     save_df_to_db(google_hist,"stock_history", engine = engine)
     google_major_holder = get_stock_financials("goog")
     ex_rate = get_exchange_rate("usd", "eur", "1d")
@@ -50,3 +51,4 @@ if __name__ == "__main__":
         logger.info("Finish stock ETL and uploading data successfully.")
     except (ValueError, KeyError, SQLAlchemyError) as e:
         logger.exception("Stock ETL encounterred error due to %s", str(e))
+        raise 
