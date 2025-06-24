@@ -115,7 +115,7 @@ def get_exchange_rate(
     fx_data["From Currency"] = from_currency
     fx_data["To Currency"] = to_currency
 
-    output_columns = [col.value for col in ExchangeOutputColumns]
+    output_columns = [col.value for col in ExchangeOutputColumns if col.value in fx_data.columns]
 
     return fx_data[output_columns]
 
