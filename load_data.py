@@ -13,7 +13,7 @@ def save_df_to_db(
     data_frame : pd.DataFrame,
     table_name : str,
     engine : sqlalchemy.engine.base.Engine = ENGINE,
-    if_exists : str="append",
+    if_exists : str ="append",
     dtype : dict=None,
 ) -> None:
     """
