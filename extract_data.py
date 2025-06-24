@@ -152,9 +152,11 @@ def get_news(stock: str) -> pd.DataFrame:
     news_df = pd.DataFrame(news)
     news_df.drop(["thumbnail", "relatedTickers"], axis=1, inplace=True,errors="ignore")
     news_df["stock"] = stock
-    news_df.rename(
-        columns={"providerPublishTime": "provider_publish_time"}, inplace=True
-    )
+    if "providerPublishTime" in news_df.columns:
+        news_df.rename(columns={"providerPublishTime": "provider_publish_time"}, inplace=True)
+    for col in output:
+        if col not in news_df.columns:
+            news_df[col] = pd.NA
     return news_df[output]
 
 
