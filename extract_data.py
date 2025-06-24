@@ -109,7 +109,7 @@ def get_exchange_rate(
 
     # Download the historical FX data
     fx_data = yf.download(ticker, interval=interval)
-    fx_data.drop("Volume", axis=1, inplace=True)
+    fx_data.drop("Volume", axis=1, inplace=True,errors="ignore")
     fx_data.reset_index(inplace=True)  # reset index to column
     fx_data["Ticker"] = ticker
     fx_data["From Currency"] = from_currency
@@ -150,7 +150,7 @@ def get_news(stock: str) -> pd.DataFrame:
     news = stock_info.news
 
     news_df = pd.DataFrame(news)
-    news_df.drop(["thumbnail", "relatedTickers"], axis=1, inplace=True)
+    news_df.drop(["thumbnail", "relatedTickers"], axis=1, inplace=True,errors="ignore")
     news_df["stock"] = stock
     news_df.rename(
         columns={"providerPublishTime": "provider_publish_time"}, inplace=True
